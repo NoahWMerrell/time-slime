@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -9,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRight = true;
     private bool isGrounded = false;
     private bool wasGrounded = false;
-    private bool jumpQueued = false;
     private float jumpBufferTime = 0.1f;
     private float jumpBufferCounter = 0f;
     private float jumpCutMultiplier = 0.5f; // Range: 0-1
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 squashedScale;
     private Vector3 stretchedScale;
     private float scaleLerpSpeed = 10f;
+    // private GameObject activeTimeClone = null;
 
 
     [SerializeField] public float acceleration = 50f;
@@ -52,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
         controls.PlayerInput.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.PlayerInput.Move.canceled += ctx => moveInput = Vector2.zero;
 
-        controls.PlayerInput.Jump.performed += ctx => jumpQueued = true;
         controls.PlayerInput.Jump.performed += ctx => jumpBufferCounter = jumpBufferTime;
         controls.PlayerInput.Jump.canceled += ctx =>
         {
@@ -62,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             }
         };
 
-        
+        controls.PlayerInput.TimeTravel.performed += ctx => TriggerTimeTravel();
 
         controls.Enable();
     }
@@ -163,9 +164,72 @@ public class PlayerMovement : MonoBehaviour
         wasGrounded = isGrounded;
 
     }
+
     void Flip()
     {
         transform.localEulerAngles = new Vector3(0, facingRight ? 0 : 180, 0);
     }
+    
+    [SerializeField] private GameObject timeClonePrefab;
+    [SerializeField] private PlayerRecorder recorder;
 
+    private float timeTravelCooldown = 6f;  // cooldown duration in seconds
+    private float lastTimeTravel = -Mathf.Infinity;  // last time triggered, start very negative so it can trigger immediatel
+
+    void TriggerTimeTravel()
+    {   
+
+        // Check cooldown
+        if (Time.time < lastTimeTravel + timeTravelCooldown)
+        {
+            // Still in cooldown, ignore the trigger
+            Debug.Log("Time travel on cooldown!");
+            return;
+        }
+
+        // Update last trigger time
+        lastTimeTravel = Time.time;
+
+        float now = Time.time;
+        float rewindDuration = 3f;
+        float currentTimeSinceStart = now - recorder.recordingStartTime;
+
+        // Get current clone data
+        List<PlayerRecorder.Snapshot> playerCloneData = recorder.GetSnapshots();
+        if (playerCloneData.Count == 0) return;
+
+        // ✅ Replay other past clones first
+        foreach (var pastClone in recorder.cloneSpawnHistory)
+        {
+            float cloneTime = pastClone.timeSinceStart;
+            float timeSinceCloneSpawned = currentTimeSinceStart - cloneTime;
+
+            if (timeSinceCloneSpawned >= 0 && timeSinceCloneSpawned <= rewindDuration)
+            {
+                float delay = rewindDuration - timeSinceCloneSpawned;
+                StartCoroutine(SpawnDelayedClone(pastClone.cloneData, delay));
+            }
+        }
+
+        // ✅ Then spawn the main (newest) clone
+        GameObject playerClone = Instantiate(timeClonePrefab, playerCloneData[0].position, Quaternion.identity);
+        playerClone.GetComponent<TimeClone>().Init(playerCloneData);
+
+        // ✅ Only after all that, record this clone for future use
+        recorder.cloneSpawnHistory.Add(new PlayerRecorder.CloneSpawnEvent
+        {
+            timeSinceStart = currentTimeSinceStart,
+            cloneData = new List<PlayerRecorder.Snapshot>(playerCloneData)
+        });
+    }
+
+
+
+
+    IEnumerator SpawnDelayedClone(List<PlayerRecorder.Snapshot> cloneData, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject clone = Instantiate(timeClonePrefab, cloneData[0].position, Quaternion.identity);
+        clone.GetComponent<TimeClone>().Init(cloneData);
+    }
 }
