@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2988075c079c947844cf884554735d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 20
+  acceleration: 50
   maxSpeed: 12
   jumpForce: 12
   groundCheck: {fileID: 964070193}
@@ -433,7 +433,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 11.25
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -478,8 +478,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 16
-  m_RefResolutionX: 640
-  m_RefResolutionY: 360
+  m_RefResolutionX: 320
+  m_RefResolutionY: 180
   m_CropFrame: 0
   m_GridSnapping: 1
   m_FilterMode: 0
