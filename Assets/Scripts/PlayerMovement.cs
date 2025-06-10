@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isGrounded && Mathf.Approximately(moveInput.x, 0f))
         {
-            float drag = 0.99f; // Lower = faster stop
+            float drag = 0.95f; // Lower = faster stop
             Vector2 velocity = body.linearVelocity;
             velocity.x *= drag;
 
