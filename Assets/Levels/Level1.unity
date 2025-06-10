@@ -156,7 +156,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 61335a42085d03943844e38524e8dbc2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2988075c079c947844cf884554735d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 8
+  acceleration: 20
   maxSpeed: 12
   jumpForce: 12
   groundCheck: {fileID: 964070193}
@@ -631,7 +631,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 61335a42085d03943844e38524e8dbc2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

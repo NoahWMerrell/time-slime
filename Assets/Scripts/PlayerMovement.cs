@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float scaleLerpSpeed = 10f;
 
 
-    [SerializeField] public float acceleration = 8f;
+    [SerializeField] public float acceleration = 50f;
     [SerializeField] float maxSpeed = 12f;
     [SerializeField] public float jumpForce = 12f;
 
@@ -30,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private int maxJumps = 1;
     private int jumpsRemaining;
+
+    void Start()
+    {
+        Application.targetFrameRate = 120;
+        QualitySettings.vSyncCount = 0;
+    }
 
     private void Awake()
     {
@@ -100,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         // Apply manual friction when grounded and no horizontal input
         if (isGrounded && Mathf.Approximately(moveInput.x, 0f))
         {
-            float friction = 0.9f; // Lower = faster stop
+            float friction = 0.5f; // Lower = faster stop
             Vector2 velocity = body.linearVelocity;
             velocity.x *= friction;
 
