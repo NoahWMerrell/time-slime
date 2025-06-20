@@ -19,12 +19,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 squashedScale;
     private Vector3 stretchedScale;
     private float scaleLerpSpeed = 10f;
-    // private GameObject activeTimeClone = null;
 
 
     [SerializeField] public float acceleration = 50f;
-    [SerializeField] float maxSpeed = 12f;
-    [SerializeField] public float jumpForce = 12f;
+    [SerializeField] float maxSpeed = 10f;
+    [SerializeField] public float jumpForce = 14f;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -107,11 +106,10 @@ public class PlayerMovement : MonoBehaviour
         // Apply manual friction when grounded and no horizontal input
         if (isGrounded && Mathf.Approximately(moveInput.x, 0f))
         {
-            float friction = 0.5f; // Lower = faster stop
+            float friction = 0.5f;
             Vector2 velocity = body.linearVelocity;
             velocity.x *= friction;
 
-            // Optionally clamp small values to zero
             if (Mathf.Abs(velocity.x) < 0.05f)
                 velocity.x = 0f;
 
@@ -120,11 +118,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isGrounded && Mathf.Approximately(moveInput.x, 0f))
         {
-            float drag = 0.95f; // Lower = faster stop
+            float drag = 0.95f;
             Vector2 velocity = body.linearVelocity;
             velocity.x *= drag;
 
-            // Optional: snap to zero for very small values
             if (Mathf.Abs(velocity.x) < 0.05f)
                 velocity.x = 0f;
 
@@ -182,7 +179,6 @@ public class PlayerMovement : MonoBehaviour
         // Check cooldown
         if (Time.time < lastTimeTravel + timeTravelCooldown)
         {
-            // Still in cooldown, ignore the trigger
             Debug.Log("Time travel on cooldown!");
             return;
         }
@@ -198,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
         List<PlayerRecorder.Snapshot> playerCloneData = recorder.GetSnapshots();
         if (playerCloneData.Count == 0) return;
 
-        // ✅ Replay other past clones first
+        // Replay past clones first
         foreach (var pastClone in recorder.cloneSpawnHistory)
         {
             float cloneTime = pastClone.timeSinceStart;
@@ -211,11 +207,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // ✅ Then spawn the main (newest) clone
+        // Spawn the main clone
         GameObject playerClone = Instantiate(timeClonePrefab, playerCloneData[0].position, Quaternion.identity);
         playerClone.GetComponent<TimeClone>().Init(playerCloneData);
 
-        // ✅ Only after all that, record this clone for future use
+        // Record clone for future use
         recorder.cloneSpawnHistory.Add(new PlayerRecorder.CloneSpawnEvent
         {
             timeSinceStart = currentTimeSinceStart,
