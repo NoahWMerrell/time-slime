@@ -4,7 +4,7 @@
 
 **Project Description**: A simple 2D platformer featuring a slime that travels through time.
 
-**Project Goals**:
+**Project Goals**: Understanding how to design and create a game using Unity and programming in C#.
 
 ## Instructions for Build and Use
 
