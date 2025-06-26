@@ -5261,7 +5261,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b14cf70c6f24e3f459097374f06864e7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 92041d7a7b052204880a5ea9a10af542, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5300,6 +5300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2988075c079c947844cf884554735d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readyColor: {r: 0.7294118, g: 1, b: 0.94509804, a: 1}
+  cooldownColor: {r: 1, g: 1, b: 1, a: 1}
+  coyoteTime: 0.2
   acceleration: 40
   maxSpeed: 8
   jumpForce: 14

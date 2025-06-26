@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerRecorder : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
     public struct Snapshot
     {
         public Vector2 position;
@@ -10,6 +11,7 @@ public class PlayerRecorder : MonoBehaviour
         public bool facingRight;
         public float time;
         public Vector3 localScale;
+        public Color slimeColor;
     }
 
     private List<Snapshot> snapshots = new();
@@ -23,7 +25,8 @@ public class PlayerRecorder : MonoBehaviour
             velocity = GetComponent<Rigidbody2D>().linearVelocity,
             facingRight = transform.localEulerAngles.y < 90f || transform.localEulerAngles.y > 270f,
             time = Time.time,
-            localScale = transform.localScale
+            localScale = transform.localScale,
+            slimeColor = spriteRenderer.color
         });
 
         // Trim old data
@@ -36,11 +39,14 @@ public class PlayerRecorder : MonoBehaviour
     public List<Snapshot> GetSnapshots() => new List<Snapshot>(snapshots);
     
     [System.Serializable]
-    public struct CloneSpawnEvent
+    public struct CloneSpawnEvent   
     {
-        public float timeSinceStart; // Not absolute Time.time
-        public List<Snapshot> cloneData;
+        public int cloneID;               // Unique ID for this clone
+        public int? parentCloneID;        // Nullable parent ID, null for player clone
+        public float timeSinceStart;      // Time of spawn relative to recordingStartTime
+        public List<Snapshot> cloneData;  // The snapshots for playback
     }
+
 
     public List<CloneSpawnEvent> cloneSpawnHistory = new List<CloneSpawnEvent>();
     public float recordingStartTime;
@@ -48,6 +54,11 @@ public class PlayerRecorder : MonoBehaviour
     void Start()
     {
         recordingStartTime = Time.time;
-    } 
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Optional fallback: if the renderer is on a child
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        } 
 }
 

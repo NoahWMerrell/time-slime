@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D body;
     private InputSystem_Actions controls;
     private Vector2 moveInput;
+    private SpriteRenderer spriteRenderer;
     private bool facingRight = true;
     private bool isGrounded = false;
     private bool wasGrounded = false;
@@ -19,8 +20,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 squashedScale;
     private Vector3 stretchedScale;
     private float scaleLerpSpeed = 10f;
+    [SerializeField] private Color readyColor = Color.cyan;
+    [SerializeField] private Color cooldownColor = Color.gray;
 
-
+    [SerializeField] private float coyoteTime = 0.2f;
+    private float coyoteTimeCounter = 0f;
     [SerializeField] public float acceleration = 50f;
     [SerializeField] float maxSpeed = 10f;
     [SerializeField] public float jumpForce = 14f;
@@ -36,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Application.targetFrameRate = 120;
         QualitySettings.vSyncCount = 0;
+
+        lastTimeTravel = Time.time;
     }
 
     private void Awake()
@@ -46,6 +52,12 @@ public class PlayerMovement : MonoBehaviour
         originalScale = transform.localScale;
         squashedScale = new Vector3(1f + stretchValue, 1f - stretchValue, 1f);
         stretchedScale = new Vector3(1f - stretchValue, 1f + stretchValue, 1f);
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
     }
 
     private void OnEnable()
@@ -132,17 +144,24 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         if (isGrounded)
         {
+            coyoteTimeCounter = coyoteTime;
             jumpsRemaining = maxJumps;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
         }
 
         // Jumping
-        if (jumpBufferCounter > 0 && (isGrounded || jumpsRemaining > 0))
+        if (jumpBufferCounter > 0 && (coyoteTimeCounter > 0f || jumpsRemaining > 0))
         {
             body.linearVelocity = new Vector2(body.linearVelocityX, jumpForce);
             transform.localScale = stretchedScale;
-            if (!isGrounded)
+
+            if (coyoteTimeCounter <= 0f) // Not grounded, using an air jump
                 jumpsRemaining--;
 
+            coyoteTimeCounter = 0f; // Prevent multiple jumps during coyote time
             jumpBufferCounter = 0f;
         }
 
@@ -160,13 +179,22 @@ public class PlayerMovement : MonoBehaviour
         // Track grounded state
         wasGrounded = isGrounded;
 
+        // Calculate cooldown progress
+        float timeSinceLastTravel = Time.time - lastTimeTravel;
+        float cooldownProgress = Mathf.Clamp01(timeSinceLastTravel / timeTravelCooldown);
+
+        // Interpolate between cooldownColor and readyColor
+        if (cooldownProgress >= 1f)
+            spriteRenderer.color = readyColor;
+        else
+            spriteRenderer.color = cooldownColor;
     }
 
     void Flip()
     {
         transform.localEulerAngles = new Vector3(0, facingRight ? 0 : 180, 0);
     }
-    
+
     [SerializeField] private GameObject timeClonePrefab;
     [SerializeField] private PlayerRecorder recorder;
 
@@ -174,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
     private float lastTimeTravel = -Mathf.Infinity;  // last time triggered, start very negative so it can trigger immediatel
 
     void TriggerTimeTravel()
-    {   
+    {
 
         // Check cooldown
         if (Time.time < lastTimeTravel + timeTravelCooldown)
@@ -218,8 +246,6 @@ public class PlayerMovement : MonoBehaviour
             cloneData = new List<PlayerRecorder.Snapshot>(playerCloneData)
         });
     }
-
-
 
 
     IEnumerator SpawnDelayedClone(List<PlayerRecorder.Snapshot> cloneData, float delay)
