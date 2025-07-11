@@ -245,6 +245,19 @@ public class PlayerMovement : MonoBehaviour
             timeSinceStart = currentTimeSinceStart,
             cloneData = new List<PlayerRecorder.Snapshot>(playerCloneData)
         });
+
+        #pragma warning disable CS0618
+        DoorRecorder[] allDoors = FindObjectsOfType<DoorRecorder>();
+        #pragma warning restore CS0618
+
+        foreach (var door in allDoors)
+        {
+            var snapshot = door.GetSnapshotFrom(3f);
+            if (snapshot.HasValue)
+            {
+                door.GetComponent<DoorController>().ApplySnapshot(snapshot.Value.position, snapshot.Value.isOpen);
+            }
+        }
     }
 
 

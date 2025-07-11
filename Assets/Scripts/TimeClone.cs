@@ -31,20 +31,20 @@ public class TimeClone : MonoBehaviour
 
         float playbackTime = Time.time - startTime;
 
+        // while (index < snapshots.Count && snapshots[index].time - snapshots[0].time <= playbackTime)
+        // {
+        //     transform.position = snapshots[index].position;
+        //     transform.localEulerAngles = new Vector3(0, snapshots[index].facingRight ? 0 : 180, 0); 
+        //     transform.localScale = snapshots[index].localScale;
+
+        //     index++;
+        // }
+
         while (index < snapshots.Count && snapshots[index].time - snapshots[0].time <= playbackTime)
         {
             transform.position = snapshots[index].position; // Keep position
             transform.localEulerAngles = new Vector3(0, snapshots[index].facingRight ? 0 : 180, 0); // Flip the clone
-            transform.localScale = snapshots[index].localScale;  // Keep scale
-
-            index++;
-        }
-
-        while (index < snapshots.Count && snapshots[index].time - snapshots[0].time <= playbackTime)
-        {
-            transform.position = snapshots[index].position;
-            transform.localEulerAngles = new Vector3(0, snapshots[index].facingRight ? 0 : 180, 0);
-            transform.localScale = snapshots[index].localScale;
+            transform.localScale = snapshots[index].localScale; // Keep scale
 
             if (spriteRenderer != null)
                 spriteRenderer.color = snapshots[index].slimeColor;

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - TimeClone
+  - Crush
   layers:
   - Default
   - TransparentFX

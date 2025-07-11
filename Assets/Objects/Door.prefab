@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4070300799589446906}
   - component: {fileID: 3402833174944564999}
   - component: {fileID: 158854479292975702}
+  - component: {fileID: 8314549644966812210}
   m_Layer: 6
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Crush
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,3 +150,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openOffset: {x: 0, y: 2, z: 0}
   moveSpeed: 2
+--- !u!114 &8314549644966812210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7873333492556146384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef2f427f6ad5bb488a869e68f650231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

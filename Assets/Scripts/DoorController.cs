@@ -40,4 +40,13 @@ public class DoorController : MonoBehaviour
             targetPosition = closedPosition;
         }
     }
+
+    public void ApplySnapshot(Vector3 position, bool open)
+    {
+        transform.position = position;
+        isOpen = open;
+        targetPosition = open ? openPosition : closedPosition;
+    }
+
+    public bool IsOpen() => isOpen;
 }
