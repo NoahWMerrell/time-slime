@@ -19,7 +19,7 @@ Instructions for using the software:
 1. To start the software varies depending on your operating system. For windows you just need to run the ```Time Slime.exe``` file.
 2. Once the game has finished loading, you can move left using ```A``` and right using ```D```. To jump, press the spacebar and press it again while in the air to double jump.
 3. To see your past self from 3 seconds ago, press ```Q```. Note: this has a 6 second cooldown which does not have a visual indicator. Right now it serves no purpose other than visual.
-4. Feel free to explore the test map! If you fall off the ledge the game will simply restart.
+4. Feel free to explore the test map! If you fall off the ledge or are crushed by a door the game will simply restart.
 
 ## Development Environment 
 
@@ -50,8 +50,12 @@ The following items I plan to fix, improve, and/or add to this project in the fu
 * [X] Double jumping
 * [X] Jump buffering
 * [X] Time travel mechanic
-* [ ] Polish time Travel mechanic and clone
+* [X] Polish time Travel mechanic and clone
 * [X] TileMapping to construct a basic map for testing
 * [X] Simple respawn mechanic
-* [ ] Objects that can be interacted with (like a lever, pressure plate, or moving platform)
-* [ ] Coyote time
+* [X] Objects that can be interacted with (like a lever, pressure plate, or moving platform)
+* [X] Coyote time
+* [ ] Main Menu
+* [ ] Level Selector
+* [X] Particles on player and clones
+* [X] Background with layers and parallax
