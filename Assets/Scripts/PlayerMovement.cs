@@ -36,6 +36,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int maxJumps = 1;
     private int jumpsRemaining;
 
+    [SerializeField] private ParticleSystem jumpParticles;
+    [SerializeField] private ParticleSystem landParticles;
+    [SerializeField] private ParticleSystem moveParticles;
+
+
     void Start()
     {
         Application.targetFrameRate = 120;
@@ -99,6 +104,26 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
+        // Particles while moving
+        if (isGrounded && Mathf.Abs(moveInput.x) > 0.1f)
+        {
+            if (!moveParticles.isPlaying)
+            {
+                moveParticles.Play();
+            }
+
+            moveParticles.transform.position = transform.position;
+            SetParticleColor(moveParticles, spriteRenderer.color);
+        }
+        else
+        {
+            if (moveParticles.isPlaying)
+            {
+                moveParticles.Stop();
+            }
+        }
+
+
         // Decrease jumpBufferCounter overtime
         if (jumpBufferCounter > 0f)
         {
@@ -158,6 +183,14 @@ public class PlayerMovement : MonoBehaviour
             body.linearVelocity = new Vector2(body.linearVelocityX, jumpForce);
             transform.localScale = stretchedScale;
 
+            if (jumpParticles != null)
+            {
+                jumpParticles.transform.position = transform.position;
+                SetParticleColor(jumpParticles, spriteRenderer.color);
+                jumpParticles.Play();
+            }
+
+
             if (coyoteTimeCounter <= 0f) // Not grounded, using an air jump
                 jumpsRemaining--;
 
@@ -171,6 +204,13 @@ public class PlayerMovement : MonoBehaviour
         {
             // Landed this frame
             transform.localScale = squashedScale;
+
+            if (landParticles != null)
+            {
+                landParticles.transform.position = groundCheck.position;
+                SetParticleColor(landParticles, spriteRenderer.color);
+                landParticles.Play();
+            }
         }
 
         // Smoothly return to normal scale
@@ -246,9 +286,9 @@ public class PlayerMovement : MonoBehaviour
             cloneData = new List<PlayerRecorder.Snapshot>(playerCloneData)
         });
 
-        #pragma warning disable CS0618
+#pragma warning disable CS0618
         DoorRecorder[] allDoors = FindObjectsOfType<DoorRecorder>();
-        #pragma warning restore CS0618
+#pragma warning restore CS0618
 
         foreach (var door in allDoors)
         {
@@ -266,5 +306,49 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(delay);
         GameObject clone = Instantiate(timeClonePrefab, cloneData[0].position, Quaternion.identity);
         clone.GetComponent<TimeClone>().Init(cloneData);
+    }
+
+    private void SetParticleColor(ParticleSystem ps, Color baseColor)
+    {
+        var colorOverLifetime = ps.colorOverLifetime;
+        colorOverLifetime.enabled = true;
+
+        Gradient gradient = new Gradient();
+
+        gradient.SetKeys(
+            new GradientColorKey[]
+            {
+            new GradientColorKey(DarkenColor(baseColor, 0.4f), 0f),
+            new GradientColorKey(baseColor, 0.5f),
+            new GradientColorKey(BrightenColor(baseColor, 0.4f), 1f)
+            },
+            new GradientAlphaKey[]
+            {
+            new GradientAlphaKey(baseColor.a, 0f),
+            new GradientAlphaKey(baseColor.a, 1f)
+            }
+        );
+
+        colorOverLifetime.color = new ParticleSystem.MinMaxGradient(gradient);
+    }
+
+    private Color BrightenColor(Color color, float amount)
+    {
+        return new Color(
+            Mathf.Clamp01(color.r + amount),
+            Mathf.Clamp01(color.g + amount),
+            Mathf.Clamp01(color.b + amount),
+            color.a
+        );
+    }
+
+    private Color DarkenColor(Color color, float amount)
+    {
+        return new Color(
+            Mathf.Clamp01(color.r - amount),
+            Mathf.Clamp01(color.g - amount),
+            Mathf.Clamp01(color.b - amount),
+            color.a
+        );
     }
 }

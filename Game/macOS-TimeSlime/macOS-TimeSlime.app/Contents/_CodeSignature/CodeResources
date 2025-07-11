@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Data/Managed/Assembly-CSharp.dll</key>
 		<data>
-		X8MgZBvqfHemGQOBo4q87JDmv/M=
+		jiw0eq3GFVdQlXwhHZKQDmqO+4g=
 		</data>
 		<key>Resources/Data/Managed/Mono.Security.dll</key>
 		<data>
@@ -542,15 +542,15 @@
 		</data>
 		<key>Resources/Data/boot.config</key>
 		<data>
-		wmAvfs6Y7aIwuQTRB3HpNoPPKI4=
+		9bAflcgA7cgY2/cfEC/mgmOc4/8=
 		</data>
 		<key>Resources/Data/globalgamemanagers</key>
 		<data>
-		RjAqoNo/VN2lOrRXYpfiikv2SAs=
+		nqnuAJoDLxlpn4nfuzyN8gJqMwA=
 		</data>
 		<key>Resources/Data/globalgamemanagers.assets</key>
 		<data>
-		FWVuUDy8OvEnX0imf5FRbzsS2Bs=
+		XV+dV5OR6u3qOy5PXZ37SZ8D08o=
 		</data>
 		<key>Resources/Data/globalgamemanagers.assets.resS</key>
 		<data>
@@ -558,23 +558,23 @@
 		</data>
 		<key>Resources/Data/level0</key>
 		<data>
-		L2O3Jdajrl5y+SQHcZN76R9bCJQ=
+		ERAD7p8783BJwaMq9g+8+zH/EJI=
 		</data>
 		<key>Resources/Data/resources.assets</key>
 		<data>
-		MbW7KQcoKcwjjMYPTh5/67hhxEU=
+		tFRxKWGrCw5vUEmg1Dnc7pFH9hE=
 		</data>
 		<key>Resources/Data/resources.assets.resS</key>
 		<data>
-		+DR+qXU9DmubJjRNxFxMcpn0k0k=
+		8mmbSCNTgHH/dvOX9/Ocb4Olq2c=
 		</data>
 		<key>Resources/Data/sharedassets0.assets</key>
 		<data>
-		UIOcseGAfXyBMzzY+zRMOMGCCag=
+		fEfSsU5+/i8nyLFWla1aEQD6itA=
 		</data>
 		<key>Resources/Data/sharedassets0.assets.resS</key>
 		<data>
-		L4e+27oMgAjjuzr5fz6gYXpRn/I=
+		2lHqJSoU82e3upemrS0/Rh8XLEg=
 		</data>
 		<key>Resources/DefaultPreferences.plist</key>
 		<data>
@@ -587,10 +587,6 @@
 		<key>Resources/MainMenu.nib/keyedobjects.nib</key>
 		<data>
 		0pKU0tdl1Ei4v7c0cAAQPj+MzEY=
-		</data>
-		<key>Resources/PlayerIcon.icns</key>
-		<data>
-		ru+VJymZgKI5CtMVeOGJvoE4sbc=
 		</data>
 		<key>Resources/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -774,7 +770,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PH0LlH474yYjZvY+OEazSR0LhL+fAYTja0eqKuNAolU=
+			2UrgIWzbgqTzetkh3lBKysUfzbtJeMH4hz/Xmg0wZZM=
 			</data>
 		</dict>
 		<key>Resources/Data/Managed/Mono.Security.dll</key>
@@ -1712,21 +1708,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JciuPLrTDKgZC52y3SjGCahE5mvCQGmdBa8FfDChj4A=
+			e7lJUtK5riIKItHMHQtwvtER3uAv/NnkmMCAOFbZCjk=
 			</data>
 		</dict>
 		<key>Resources/Data/globalgamemanagers</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BOmz9b2sy95RjGtU53anCdpJ7bnnvv+RpKHF3kkvhtU=
+			9AvKRJijl6rjRMOnEgQbJcLZF6M/N9MIL0BrwnYfiJ4=
 			</data>
 		</dict>
 		<key>Resources/Data/globalgamemanagers.assets</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TxWJKSIAR33V1VWvoQvnjxxVygCBl+wGJPZIZ6f7yL8=
+			fIVsbr+INyrQoDwoM5mbk97KKT0kC4Qs3yYBY40XCF0=
 			</data>
 		</dict>
 		<key>Resources/Data/globalgamemanagers.assets.resS</key>
@@ -1740,35 +1736,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bshd87v3+d6tMoAhN4FSDZlG201H4DskD8/I1YSfNgk=
+			qyzfCcFQ4WgFhRi31G/S0kDS4RX81+bJ/hJ5svQWltU=
 			</data>
 		</dict>
 		<key>Resources/Data/resources.assets</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			r64+ZDD/BffTfhjWhWcSRPkFkZ46jKpVXQQuwZQbbbU=
+			/O903rET81Po81lP1ig0XGPbcZYesZv30H7nR5ltNyU=
 			</data>
 		</dict>
 		<key>Resources/Data/resources.assets.resS</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8S8wtMFkgnPkYNq5+OyXTmFpgPejAn1UrEyg8ZuonNM=
+			gI8CBWoEJheUzYzPDaQYOc913aYhNKJ+t2LzrGopMiU=
 			</data>
 		</dict>
 		<key>Resources/Data/sharedassets0.assets</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			E2lc+90BZblXvuzPeUCpGZ8DFXfAQZeGkRI5y6ElmNk=
+			2GAjqYVTgr/pFR6mQdXFiX8iD4uR7LTE171DlHrSzq8=
 			</data>
 		</dict>
 		<key>Resources/Data/sharedassets0.assets.resS</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			aoU6nfagGnNp6OA0NNhy/UYRPnnvATF3ex3Tg8eXGrs=
+			QMBkuq2QOiwi82OorkdYzma6V4Cszh1D9C0514BpwWE=
 			</data>
 		</dict>
 		<key>Resources/DefaultPreferences.plist</key>
@@ -1790,13 +1786,6 @@
 			<key>hash2</key>
 			<data>
 			H65bfG7psXp2exY2hnpBs+ROr49lSxxeLK+jJhRjEE0=
-			</data>
-		</dict>
-		<key>Resources/PlayerIcon.icns</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			cbRDaBTKyKzdNzrhLGXmtDXUiy+TCzcBcFmIp9Ebx/w=
 			</data>
 		</dict>
 		<key>Resources/PrivacyInfo.xcprivacy</key>
